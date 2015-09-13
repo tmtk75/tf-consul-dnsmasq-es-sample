@@ -1,0 +1,11 @@
+- hosts: all
+  gather_facts: true
+  sudo: true
+  roles:
+  - role: consul
+    node_name: "{{ facter_ec2_instance_id }}"
+
+  tasks:
+  - name: reload
+    tags: [consul, consul.reload]
+    command: /usr/local/sbin/consul reload

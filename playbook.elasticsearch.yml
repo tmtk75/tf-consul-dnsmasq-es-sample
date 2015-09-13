@@ -1,0 +1,18 @@
+- hosts: all
+  gather_facts: true
+  sudo: true
+
+  roles:
+  - { role: elasticsearch, consul_service_check_interval: "5s" }
+
+  vars:
+  - consul_enabled: true
+
+  tasks:
+  - name: elasticsearch-head
+    tags: [elasticsearch, elasticsearch.plugin.head]
+    command: /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+
+  - name: elasticsearch restart
+    tags: [elasticsearch, elasticsearch.restart]
+    service: name=elasticsearch state=restarted

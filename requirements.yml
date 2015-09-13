@@ -1,0 +1,17 @@
+# from galaxy
+- src: tmtk75.consul
+  name: consul
+
+- src: tmtk75.puppet
+  name: puppet
+
+- src: https://github.com/tmtk75/ansible-dnsmasq
+  name: dnsmasq
+
+- src: https://github.com/tmtk75/ansible-elasticsearch
+  version: master
+  name: elasticsearch
+
+- src: https://github.com/tmtk75/ansible-consul-template
+  name: consul-template
+

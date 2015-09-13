@@ -1,0 +1,21 @@
+- hosts: all
+  gather_facts: true
+  sudo: true
+  vars:
+  - minimum_master_nodes: 3
+
+  roles:
+  - role: consul-template
+    templates:
+    - src: "/etc/elasticsearch/elasticsearch.yml.ctempl"
+      dest: "/etc/elasticsearch/elasticsearch.yml"
+      command: "sudo service elasticsearch restart"
+
+  tasks:
+  - name: copy elasticsearch.yml.ctempl
+    tags: [consul-template, consul-template.ctempl, consul-template.copy-es]
+    template: src=./templates/elasticsearch.yml.ctempl dest=/etc/elasticsearch/elasticsearch.yml.ctempl owner=consul group=consul mode=0644
+
+  - name: run consul template once
+    tags: [consul-template, consul-template.ctempl, consul-template.run-once]
+    command: /usr/local/sbin/consul-template -once -config=/etc/consul-template.conf

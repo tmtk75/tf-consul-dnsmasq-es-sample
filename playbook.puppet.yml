@@ -1,0 +1,12 @@
+- hosts: all
+  sudo: true
+
+  roles:
+  - role: puppet
+
+  tasks:
+  - yum: name={{ item }}
+    with_items:
+    - vim-enhanced
+    - sysstat
+    - bind-utils
