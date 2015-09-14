@@ -1,8 +1,8 @@
 /* */
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
-variable "aws_region"     { default = "ap-southeast-1" }
-variable "vpc_subnet_zone_white" { default = "b" }
+variable "aws_region"     { default = "ap-northeast-1" }
+variable "vpc_subnet_zone_white" { default = "c" }
 variable "cluster_name" { default = "my-dev-cluster" }
 variable "cidr_home" {}
 
@@ -23,7 +23,7 @@ module "ami-centos" {
     source = "github.com/tmtk75/terraform-modules/aws/ami"
     distribution        = "centos"
     version             = "7"
-    region              = "ap-southeast-1"
+    region              = "${var.aws_region}"
     virtualization_type = "hvm"
 }
 

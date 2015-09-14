@@ -11,11 +11,21 @@
       dest: "/etc/elasticsearch/elasticsearch.yml"
       command: "sudo service elasticsearch restart"
 
+    - src: "/etc/hosts.ctempl"
+      dest: "/etc/hosts"
+
   tasks:
+  ## Elasticsearch
   - name: copy elasticsearch.yml.ctempl
     tags: [consul-template, consul-template.ctempl, consul-template.copy-es]
     template: src=./templates/elasticsearch.yml.ctempl dest=/etc/elasticsearch/elasticsearch.yml.ctempl owner=consul group=consul mode=0644
 
+  ## /etc/hosts
+  - name: copy hosts.ctempl
+    tags: [consul-template, consul-template.ctempl, consul-template.copy-hosts]
+    template: src=./templates/hosts.ctempl dest=/etc/hosts.ctempl owner=root group=root mode=0644
+
   - name: run consul template once
     tags: [consul-template, consul-template.ctempl, consul-template.run-once]
     command: /usr/local/sbin/consul-template -once -config=/etc/consul-template.conf
+
